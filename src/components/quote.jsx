@@ -9,24 +9,26 @@ export default function Quote() {
   const [author, setAuthor] = useState("Olaitan Feranmi")
   const [loading, setLoading] = useState(false)
 
+
+
   const findQuote = async () => {
-    setLoading(true)
+  setLoading(true)
 
-    try {
-      const res = await axios.get(
-        "https://corsproxy.io/?https://zenquotes.io/api/random"
-      )
-
-      setQuote(res.data[0].q)
-      setAuthor(res.data[0].a)
-    } catch (error) {
-      console.error("Failed to fetch quote:", error)
-      setQuote("Failed to load quote. Please try again.")
-      setAuthor("")
-    } finally {
-      setLoading(false)
-    }
+  try {
+    const res = await axios.get("https://api.api-ninjas.com/v1/quotes", {
+      headers: { 'X-Api-Key': 'sjMJkRrVVJUxnZfX6Kxxz6HmSmvTZNUs54fsz4hZ' }
+    })
+    
+    setQuote(res.data[0].quote)
+    setAuthor(res.data[0].author)
+  } catch (error) {
+    console.error("Failed to fetch quote:", error)
+    setQuote("Failed to load quote. Please try again.")
+    setAuthor("")
+  } finally {
+    setLoading(false)
   }
+}
 
   const volume = () => {
     const utterance = new SpeechSynthesisUtterance(quote)
